@@ -5,8 +5,9 @@ digipeater and the expected behavior of the digipeater in processing the
 packets on the way out.
 
 All digipeaters must implement 30 second duplicate suppression. No digipeater
-may transmit the same (source address, information field) twice in any 30
-second window.
+may transmit the same (source address, destination address, information field)
+twice in any 30 second window. No digipeater may modify any of those fields
+while processing packets to be digipeated.
 
 It is to be expected that essentially none of the existing digipeaters exactly
 follow all of this behavior as documented. Kludging in legacy support is not
