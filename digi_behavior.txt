@@ -4,12 +4,17 @@ This document is a list of example paths which may flow into a deployed
 digipeater and the expected behavior of the digipeater in processing the
 packets on the way out.
 
+All digipeaters must implement 30 second duplicate suppression. No digipeater
+may transmit the same (source address, information field) twice in any 30
+second window.
+
 It is to be expected that essentially none of the existing digipeaters exactly
-follow all of this behavior as documented. Hopefully this document would help
-align all future digipeater deployments to all behave more similarly.
+follow all of this behavior as documented. Kludging in legacy support is not
+an objective for this document. Hopefully this document would help
+align all future digipeater deployments/designs to all behave more similarly.
 
 The document will cover the following instances of digipeaters:
-* LOWDIG-1: A low level digipeater, typically at <30' HAAT for supporting
+* LOWDIG-1: A low level digipeater, typically at <50' HAAT for supporting
   local low-power trackers for getting into the high-level digipeater network
 * DIGIA-1: A high level digipeater on a significant tower or mountain
 
@@ -19,16 +24,24 @@ Each example will be in the following format:
   [packet path coming out of the digi / DROPPED]
 
 Other station callsigns which will be used are:
-* TRACKR-5: A mobile tracker using the digis
-* DIGIX-2, DIGIY-2, DIGIZ-2: Other near-by digipeaters (which may even be misbehaving)
+* TRACKR-5: A tracker using the digipeater network
+* DIGIX-2, DIGIY-2, DIGIZ-2: Other near-by digipeaters
 
-The term "quench" is used when via hops are pre-empted for various reasons.
-When a hop is trapped and artifically marked as used without actually being used,
-the lower RR bit should be set to 0. Unfortunately, the two aprs.org docs on
-hop RR bits disagree:
+The term "quench" is used when via hops are pre-empted or trapped for various 
+reasons. When a hop is trapped and artifically marked as used without actually
+being used, the lower RR bit should be set to 0 on that hop. Unfortunately, the
+two aprs.org docs on hop RR bits disagree:
  http://www.aprs.org/aprs12/preemptive-digipeating.txt
  http://www.aprs.org/aprs12/RR-bits.txt
-This document assumes the RR-bits.txt document is correct since it makes more sense.
+This document assumes the RR-bits.txt document is correct since it makes more 
+sense.
+
+Standing issues:
+* Should excessive long paths be punished by clamping their length or quench
+    the whole path?
+* How should we punish malformed (WIDE1-2, WIDE2-3) hops?
+* Should high level digis preempt WIDE1-1,WIDE2-1?
+* Is there any value in allowing users to disable preemptive digipeating?
 
 L          OOO    W     W  DDDD     IIIIIII    GGGGG              1   
 L         O   O   W     W  D  DDD      I      GG                 11   
@@ -43,9 +56,10 @@ LLLLLLL    OOO      W W    DDDD     IIIIIII    GGGG            1111111
 LOWDIG-1 is a low level digipeater, which means that it should only respond
 to WIDE1-1 in the first position of a path or its exact callsign for
 non-aliased routing.
+It supports preemptive digipeating.
 
-The local APRS RF-LAN working group for these examples has agreed on a maximum 
-of three hops per packet.
+Assume the local APRS RF-LAN working group for these examples has agreed on 
+a maximum of three hops per packet.
 
 Parameters:
 * lowlevel = true
@@ -69,10 +83,6 @@ TRACKR-5>APZTST,WIDE2-1 ->
 TRACKR-5>APZTST,RELAY ->
   [DROP PACKET]
 
-# The bare WIDE alias is depricated
-TRACKR-5>APZTST,WIDE ->
-  [DROP PACKET]
-
 # WIDE1-1 isn't allowed after the first hop
 TRACKR-5>APZTST,WIDE2-2,WIDE1-1 ->
   [DROP PACKET]
@@ -86,8 +96,12 @@ TRACKR-5>APZTST,WIDE1-1,WIDE1-1 ->
 TRACKR-5>APZTST,WIDE1-1,WIDE2-1,WIDE1-1 ->
   TRACKR-5>APZTST,LOWDIG-1*,WIDE2-1*,WIDE1-1*
 
+# Malformed aliases would be generally dropped since they aren't WIDE1-1
+TRACKR-5>APZTST,WIDE1-2 ->
+  [DROP PACKET]
+
 # Quench excessive paths which exceed the maxhop parameter
-# The WIDE3-3* via should have its lower RR bit set to 0.
+# The WIDE3-3* hop should have its lower RR bit set to 0.
 TRACKR-5>APZTST,WIDE1-1,WIDE3-3 ->
   TRACKR-5>APZTST,LOWDIG-1*,WIDE3-3*
 
@@ -108,7 +122,88 @@ TRACKR-5>APZTST,DIGIX-2*,LOWDIG-1 ->
 TRACKR-5>APZTST,DIGIX-2,LOWDIG-1 ->
   TRACKR-5>APZTST,DIGIX-2*,LOWDIG-1*
 
-# 
-TRACKR-5>APZTST, ->
-  TRACKR-5>APZTST,
+# No need to trap the more specific address; dupe filter will handle it
+TRACKR-5>APZTST,WIDE1-1,LOWDIG-1 ->
+  TRACKR-5>APZTST,LOWDIG-1*,LOWDIG-1
 
+
+
+DDDD     IIIIIII    GGGGG  IIIIIII     A                 1   
+D  DDD      I      GG         I       A A               11   
+D    DD     I     GG          I      A   A             1 1   
+D     D     I     G           I     A     A              1   
+D     D     I     G           I     AAAAAAA   -----      1   
+D     D     I     G  GGGG     I     A     A              1   
+D    DD     I     GG    G     I     A     A              1   
+D  DDD      I      GG  GG     I     A     A              1   
+DDDD     IIIIIII    GGGG   IIIIIII  A     A           1111111
+
+DIGIA-1 is a high level digipeater, which means that it stands well above
+the local terrain with a high power (10-50W) transmitter. It may respond to
+any n-N value or its exact callsign.
+
+Assume the local APRS RF-LAN working group for these examples has agreed on 
+a maximum of three hops per packet.
+
+Parameters:
+* lowlevel = false
+* maxhop = 3
+* aliases = WIDE
+
+# High level digis may respond to WIDE1-1
+TRACKR-5>APZTST,WIDE1-1 ->
+  TRACKR-5>APZTST,DIGIA-1*
+
+# as well as to WIDEn-N with n>1
+TRACKR-5>APZTST,WIDE2-1 ->
+  TRACKR-5>APZTST,DIGIA-1*
+
+# Multi-hop aliases are split into the consumed hop and the remaining hops
+TRACKR-5>APZTST,WIDE2-2 ->
+  TRACKR-5>APZTST,DIGIA-1*,WIDE2-1
+
+# The bare WIDE alias is depricated
+TRACKR-5>APZTST,WIDE ->
+  [DROP PACKET]
+
+# n-N aliases not configured for this digipeater should be ignored
+TRACKR-5>APZTST,TEMP2-2 ->
+  [DROP PACKET]
+
+# Should high digis preempt low level aliases?
+TRACKR-5>APZTST,WIDE1-1,WIDE2-1 ->
+  TRACKR-5>APZTST,DIGIA-1*,WIDE2-1
+OR
+  TRACKR-5>APZTST,WIDE1-1*,DIGIA-1*
+
+# Search for the first unused hop
+TRACKR-5>APZTST,DIGIX-2*,WIDE2-1 ->
+  TRACKR-5>APZTST,DIGIX-2*,DIGIA-1*
+
+# Respond to its exact callsign
+TRACKR-5>APZTST,DIGIA-1 ->
+  TRACKR-5>APZTST,DIGIA-1*
+TRACKR-5>APZTST,DIGIX-2*,DIGIA-1 ->
+  TRACKR-5>APZTST,DIGIX-2*,DIGIA-1*
+
+# Don't respond to other SSIDs
+TRACKR-5>APZTST,DIGIA-4 ->
+  [DROP PACKET]
+
+# Quench paths longer than maxhop
+# Set the preempt RR bit to 0 on WIDE4-3*
+TRACKR-5>APZTST,WIDE4-4 ->
+  TRACKR-5>APZTST,DIGIA-1*,WIDE4-3*
+
+# Preemptively digipeat past other hops
+# Set preempt RR bit to 0 on LOWDIG-1*
+TRACKR-5>APZTST,LOWDIG-1,WIDE2-1 ->
+  TRACKR-5>APZTST,LOWDIG-1*,DIGIA-1*
+TRACKR-5>APZTST,LOWDIG-1,WIDE2-2 ->
+  TRACKR-5>APZTST,LOWDIG-1*,DIGIA-1*,WIDE2-1
+
+# Quench malformed aliases
+TRACKR-5>APZTST,WIDE1-2 ->
+  TRACKR-5>APZTST,DIGIA-1*,WIDE1-1*
+TRACKR-5>APZTST,WIDE2-3 ->
+  TRACKR-5>APZTST,DIGIA-1*,WIDE2-2*
