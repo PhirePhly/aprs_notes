@@ -1,0 +1,8 @@
+http://aprs.org/symbols.html - Basic lookup table and intro
+http://www.aprs.org/symbols/symbols.txt - Original list (deprecated?)
+http://www.aprs.org/symbols/symbolsX.txt - Current primary/alternate symbol list
+http://aprs.org/symbols/symbols-new.txt - Symbol overlays
+
+https://github.com/hessu/aprs-symbol-index - Hessu's version of symbolsX.txt
+https://github.com/hessu/aprs-symbols - Vector artwork for symbols
+

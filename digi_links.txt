@@ -1,0 +1,6 @@
+https://www.tapr.org/aprsdoc/DIGIS.TXT
+http://dididahdahdidit.com/text/digis.txt
+http://www.aprs.org/newN/WIDE1-1settings.txt
+http://aprs.org/event/event-digis.txt
+http://www.aprs.org/aprs11/hacks.txt (Network protection features)
+
