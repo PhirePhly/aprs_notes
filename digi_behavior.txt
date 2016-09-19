@@ -208,3 +208,34 @@ TRACKR-5>APZTST,WIDE1-2 ->
   TRACKR-5>APZTST,DIGIA-1*,WIDE1-1*
 TRACKR-5>APZTST,WIDE2-3 ->
   TRACKR-5>APZTST,DIGIA-1*,WIDE2-2*
+
+# Deduplicate identical packets
+TRACKR-5>APZTST,WIDE2-1:,INFO ->
+  TRACKR-5>APZTST,DIGIA-1*:,INFO
+# Less than 30 seconds later
+TRACKR-5>APZTST,WIDE2-1:,INFO ->
+  [DROP PACKET]
+
+# Deduplicate identical packets with explicit routing
+TRACKR-5>APZTST,DIGIA-1:,INFO ->
+  TRACKR-5>APZTST,DIGIA-1*:,INFO
+# Less than 30 seconds later
+TRACKR-5>APZTST,DIGIA-1:,INFO ->
+  [DROP PACKET]
+
+# Deduplicate identical packets regardless of path
+TRACKR-5>APZTST,WIDE2-2:,INFO ->
+  TRACKR-5>APZTST,DIGIA-1*,WIDE2-1:,INFO
+# Less than 30 seconds later
+TRACKR-5>APZTST,DIGIX-2*,WIDE2-1:,INFO ->
+  [DROP PACKET]
+
+# Already full VIA paths...
+# This one is very interesting since it should cause a nine hop output,
+# which isn't allowed in AX.25, so which alias do you trim on the output?
+TRACKR-5>APZTST,DIGIX-2*,DIGIY-2*,DIGIZ-2*,DIGIW-2*,DIGIV-2*,DIGIU-2*,DIGIT-2*,WIDE2-2 ->
+  TRACKR-5>APZTST,DIGIX-2*,DIGIY-2*,DIGIZ-2*,DIGIW-2*,DIGIV-2*,DIGIU-2*,DIGIT-2*,DIGIA-1*
+  TRACKR-5>APZTST,DIGIY-2*,DIGIZ-2*,DIGIW-2*,DIGIV-2*,DIGIU-2*,DIGIT-2*,DIGIA-1*,WIDE2-1
+  TRACKR-5>APZTST,DIGIX-2*,DIGIY-2*,DIGIZ-2*,DIGIW-2*,DIGIV-2*,DIGIU-2*,DIGIA-1*,WIDE2-1
+  [DROP PACKET]
+
