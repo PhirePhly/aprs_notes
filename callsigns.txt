@@ -1,0 +1,71 @@
+ *** APRS Callsigns ***
+
+APRS was originally built on top of AX.25, which limited each station to
+a six character callsign with an additional four bit secondary station
+identifier (SSID). This limit still exists on AX.25, but APRS stations
+operating exclusively on the APRS-IS Internet system isn't as limited
+
+Callsigns for APRS must be:
+ * Consist of only upper case letters and numbers
+ * Be at least three characters long preceeding the optional '-SSID'
+ * Optionally include one '-' with a 1-2 character alphanumeric SSID suffix
+ * Be no longer than nine characters
+
+Callsigns should be:
+ * Globally unique
+
+In addition to legal callsigns and tactical calls, APRS defines additional
+calls which fall in these categories:
+ * Blacklisted callsigns
+ * Terminal Node Controller Identifiers
+ * Routing aliases
+ * Special handling tokens
+
+
+ *** Blacklisted Callsigns ***
+
+The following callsigns are used for documentation and should be dropped
+or disallowed as early as possible if a user attempts to use them for their
+station callsign:
+ * NOCALL
+ * N0CALL
+ * MYCALL
+
+
+ *** Terminal Node Controller Identifiers ***
+
+The destination station field may optionally be used to identify the hardware
+or software being used, in which case the destination callsign will begin with
+AP....
+
+Relevant links: 
+ * http://aprs.org/aprs11/tocalls.txt
+ * https://github.com/hessu/aprs-deviceid
+
+
+ *** Routing Aliases ***
+
+Many callsigns may be used in the list of VIA stations to request service
+from groups of digipeaters instead of individual specific digipeaters.
+Each of these aliases consists of  one to five characters, an 'n' original 
+hop specifier, and an 'N' hops remaining specifier as the SSID.
+ * Neither n nor N may be greater than seven.
+ * n must always be greater than or equal to N
+ * N must be decremented by every digipeater handling a packet
+
+The most widely supported alias is WIDEn-N
+
+Many regions standardize on additional local aliases, which are often referred
+to as SSn-N aliases, since the idea originated with state-wide groups for
+smaller east coast states. These groups allow local users to flood the network
+with SS7-7 aliases without packets traveling outside the intended service area.
+See your local regional APRS interest group for more information.
+
+
+ *** Special Handling Tokens ***
+
+The last hop in a VIA routing list may be a special handling token, which
+instructs other stations to handle the packet in a specific way:
+ * RFONLY - Do not I-gate this packet to the APRS-IS backbone
+ * NOGATE - Do not I-gate this packet to the APRS-IS backbone
+
