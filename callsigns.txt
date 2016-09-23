@@ -7,15 +7,15 @@ operating exclusively on the APRS-IS Internet system isn't as limited
 
 Callsigns for APRS must be:
  * Consist of only upper case letters and numbers
- * Be at least three characters long preceeding the optional '-SSID'
- * Optionally include one '-' with a 1-2 character alphanumeric SSID suffix
- * Be no longer than nine characters
+ * At least three characters long preceeding the optional '-SSID'
+ * Optionally include one hyphen with a 1-2 character alphanumeric SSID suffix
+ * No longer than nine characters, including the optional hyphen and SSID
 
 Callsigns should be:
  * Globally unique
 
-In addition to legal callsigns and tactical calls, APRS defines additional
-calls which fall in these categories:
+In addition to legally identifying callsigns and tactical calls, APRS
+defines additional calls which fall in these categories:
  * Blacklisted callsigns
  * Terminal Node Controller Identifiers
  * Routing aliases
@@ -36,7 +36,7 @@ station callsign:
 
 The destination station field may optionally be used to identify the hardware
 or software being used, in which case the destination callsign will begin with
-AP....
+"AP". Experimental devices may use the "APZ" prefix without contacting Bob B.
 
 Relevant links: 
  * http://aprs.org/aprs11/tocalls.txt
@@ -45,9 +45,9 @@ Relevant links:
 
  *** Routing Aliases ***
 
-Many callsigns may be used in the list of VIA stations to request service
-from groups of digipeaters instead of individual specific digipeaters.
-Each of these aliases consists of  one to five characters, an 'n' original 
+Many callsigns may be used in the routing path to request service from
+groups of digipeaters instead of individual specific digipeaters.
+Each of these aliases consists of one to five characters, an 'n' original
 hop specifier, and an 'N' hops remaining specifier as the SSID.
  * Neither n nor N may be greater than seven.
  * n must always be greater than or equal to N
@@ -64,7 +64,7 @@ See your local regional APRS interest group for more information.
 
  *** Special Handling Tokens ***
 
-The last hop in a VIA routing list may be a special handling token, which
+The last hop in a routing path may be a special handling token, which
 instructs other stations to handle the packet in a specific way:
  * RFONLY - Do not I-gate this packet to the APRS-IS backbone
  * NOGATE - Do not I-gate this packet to the APRS-IS backbone
