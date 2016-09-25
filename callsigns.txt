@@ -5,11 +5,12 @@ a six character callsign with an additional four bit secondary station
 identifier (SSID). This limit still exists on AX.25, but APRS stations
 operating exclusively on the APRS-IS Internet system isn't as limited
 
-Callsigns for APRS must be:
+Callsigns for APRS must:
  * Consist of only upper case letters and numbers
- * At least three characters long preceeding the optional '-SSID'
+ * Be at least three characters long preceeding the optional '-SSID'
  * Optionally include one hyphen with a 1-2 character alphanumeric SSID suffix
- * No longer than nine characters, including the optional hyphen and SSID
+ * No longer than nine characters in total, including the optional hyphen and SSID
+ * Not include the -0 SSID, since that is implicit in a lack of an SSID
 
 Callsigns should be:
  * Globally unique
