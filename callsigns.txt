@@ -5,15 +5,28 @@ a six character callsign with an additional four bit secondary station
 identifier (SSID). This limit still exists on AX.25, but APRS stations
 operating exclusively on the APRS-IS Internet system isn't as limited
 
+Callsigns for AX.25 must:
+ * Consist of only upper case letters and numbers
+ * Have a base callsign before the SSID at least three characters long
+ * Have a numeric SSID which falls in 0 - 15
+ * Have a base callsign before the SSID no longer than six characters
+
 Callsigns for APRS must:
  * Consist of only upper case letters and numbers
  * Be at least three characters long preceeding the optional '-SSID'
  * Optionally include one hyphen with a 1-2 character alphanumeric SSID suffix
- * No longer than nine characters in total, including the optional hyphen and SSID
+ * Be no longer than nine characters in total
  * Not include the -0 SSID, since that is implicit in a lack of an SSID
 
 Callsigns should be:
  * Globally unique
+
+The APRS limitation of nine characters causes confusion as to if base
+callsigns of lengths 7-9 are allowed.
+
+In this context alphanumeric is defined as any ASCII values in the range:
+ * decimal [65 - 90] - 'A'-'Z'
+ * decimal [48 - 57] - '0'-'9'
 
 In addition to legally identifying callsigns and tactical calls, APRS
 defines additional calls which fall in these categories:
@@ -69,4 +82,6 @@ The last hop in a routing path may be a special handling token, which
 instructs other stations to handle the packet in a specific way:
  * RFONLY - Do not I-gate this packet to the APRS-IS backbone
  * NOGATE - Do not I-gate this packet to the APRS-IS backbone
+ * TCPIP - Packet originated from Internet source, do not I-gate
+ * TCPXX - Packet originated from unverified Internet source (?), do not I-gate. Deprecated?
 
