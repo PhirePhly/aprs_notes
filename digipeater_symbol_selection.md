@@ -119,10 +119,9 @@ local APRS network. Local APRS stations are encouraged to set their path
 to route APRS traffic through specific local digipeaters instead of using
 aliases like WIDEn-N when getting digipeated by those single specific
 digipeaters provides the desired coverage.
-
-Digipeaters are also expected to behave as prototypical APRS digipeaters.
 When a new digipeater is built supporting unusual behavior which users might
 find confusing, or is set up temporarily for activities such as coverage
-testing from a new site, it is considered an experimental digipeater.
+testing from a new site, it should be labeled as an experimental digipeater
+to prevent confusion or issues when the digipeater is then taken offline.
 
 * X# - Experimental digipeater
