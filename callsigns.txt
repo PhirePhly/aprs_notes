@@ -3,7 +3,7 @@
 APRS was originally built on top of AX.25, which limited each station to
 a six character callsign with an additional four bit secondary station
 identifier (SSID). This limit still exists on AX.25, but APRS stations
-operating exclusively on the APRS-IS Internet system isn't as limited
+operating exclusively on the APRS-IS Internet system aren't as limited.
 
 Callsigns for AX.25 must:
  * Consist of only upper case letters and numbers
@@ -44,6 +44,7 @@ station callsign:
  * NOCALL
  * N0CALL
  * MYCALL
+ * SERVER
 
 
  *** Terminal Node Controller Identifiers ***
