@@ -30,13 +30,3 @@ https://github.com/hessu/aprs-symbol-index
 	Hessu's version of symbolsX.txt
 https://github.com/hessu/aprs-symbols
 	Vector artwork for symbols
-
-Seemingly current symbols:
- /# - Generic WIDEn-N digipeater
- 1# - WIDE1-1/direct-only digipeater
- A# - Alternate input (i.e. 144.990MHz) digipeater
- I# - I-gate equipped digipeater
- L# - WIDEn-N with path length trapping
- S# - SSn-N digipeater
- X# - eXperimental digipeater
-
