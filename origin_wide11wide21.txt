@@ -1,0 +1,80 @@
+Stephen Smith often claims that he invented the WIDE1-1,WIDE2-1 scheme
+used for most mobile trackers in the modern APRS network.
+I instead credit the inovation to both him and Wes Johnston.
+
+http://www.tapr.org/pipermail/aprssig/2005-March/005419.html
+Stephen H. Smith wa8lmf2 at aol.com 
+Thu Mar 31 23:01:14 UTC 2005
+Previous message: [aprssig] Why RELAY,WIDE... is so bad....
+Next message: [aprssig] Why RELAY,WIDE... is so bad....
+Messages sorted by: [ date ] [ thread ] [ subject ] [ author ]
+On the issue of how to combine home digi first-hop-assist with true 
+WIDEn-N systems without using first-hop RELAY:
+
+
+How about a path of    "WIDE1-1, WIDE1-1"    or    "WIDE1-1, WIDE2-2"    ??
+
+
+Set the alias of the former home "RELAY" digi to WIDE1-1 instead.   If a 
+"dumb" home former-RELAY-type digi does the first digipeat, it marks 
+WIDE1-1 as used. 
+
+Then the true WIDEn-N digi(s) get a shot at the second part of the 
+path.   I assume that in the absence of a nearby home digi, a "real" 
+WIDEn-N would digi the first hop, then the WIDE2-2 part would cause two 
+more digipeats.    
+
+The path is compatible with either    first-hop-via-home-station,   or 
+with all hops via    n-N-only    true wides and preserves exclusively 
+dupe-supressing WIDEn-N type paths.
+
+
+[ BTW,   Here in L.A. the monster mountaintop digis are now swallowing 
+WIDE2-2 on a single hop.  Before that was implemented,  when I  was just 
+driving around the greater L.A. area, I would routinely set WIDE1-1 into 
+my mobile UI-View setup to get into the WIDEn-N-only digipeaters with an 
+absolute minimum of dupes.   In my experience, ONE hop from a high digi 
+will get into an igate from anywhere in the greater L.A. area.  ]
+
+
+
+Stephen H. Smith             wa8lmf (at) aol.com
+                                                    
+Home Page:                   http://wa8lmf.com
+
+New/Updated "Rev G" APRS     http://webs.lanset.com/wa8lmf/aprs
+Symbols Set for UI-View,
+UIpoint and APRSplus:
+
+#######################################################################
+
+http://www.tapr.org/pipermail/aprssig/2005-April/005466.html
+Date: Fri, 01 Apr 2005 14:47:43 -0500
+From: Wes Johnston <aprsatkd4rdb.com>
+Subject: [aprssig] Re: Actually, the WIDE2-1,WIDE1-1 solution!
+
+I think I have it!
+
+A mobile station running W1-1,W2-2 gives 3 hops minimum becuase
+W1-1,W1-1 would cause every home station in town to TX....  But there is
+a real case for running less than 3 hops... If a mobile wants to limit
+his path to fewer than 3 hops, he can "dummy up" a reduced Wn-n count by
+using W2-1 instead of W2-2.
+
+I still think RELAY stations switching to W1-1 is a good idea.
+
+We could have three recommended paths for mobiles:
+W2-2       ->two hops off digis, if you can hit 1st digi direct
+W1-1,W2-1  ->one hop off house or digi, one more hop off digi
+W1-1,W2-2  ->one hop off house or digi, two more hops off digis
+
+In other words, if you want one hop, we have a solution.... WIDE1-1
+If you want two hops, we have a solution W1-1,W2-1
+If you want three hops, we have a solution W1-1,W2-2
+if you want four hops, we have a solution W1-1,W3-3
+
+And.... W2-2 still works everywhere because all digipeaters will respond
+to it.
+
+Wes
+
