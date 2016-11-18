@@ -13,10 +13,11 @@ Callsigns for AX.25 must:
 
 Callsigns for APRS must:
  * Consist of only upper case letters and numbers
- * Be at least three characters long preceeding the optional '-SSID'
+ * The base callsign (before the SSID) must be at least three characters long
+ * The base callsign must be no more than nine characters long
+ * The callsign in total must be no more than nine characters long
  * Optionally include one hyphen with a 1-2 character alphanumeric SSID suffix
- * Be no longer than nine characters in total
- * Not include the -0 SSID, since that is implicit in a lack of an SSID
+ * The SSID may not start with '0'
 
 Callsigns should be:
  * Globally unique
