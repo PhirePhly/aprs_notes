@@ -4,6 +4,13 @@ APRS was originally built on top of AX.25, which limited each station to
 a six character callsign with an additional four bit secondary station
 identifier (SSID). This limit still exists on AX.25, but APRS stations
 operating exclusively on the APRS-IS Internet system aren't as limited.
+That being said, a common mistake when building exclusively RF based nodes
+is to not support non-AX.25 APRS callsigns, which will cause problems when
+trying to exchange APRS messages with IP-based stations.
+
+Callsigns are written in what is called the TNC2 format, so althought the
+AX.25 header supports the SSIDs 0-15, you will not see callsigns such as
+CALLSN-0. By convention, the zero callsign is dropped and written as CALLSN.
 
 Callsigns for AX.25 must:
  * Consist of only upper case letters and numbers
@@ -22,15 +29,21 @@ Callsigns for APRS must:
 Callsigns should be:
  * Globally unique
 
-The APRS limitation of nine characters causes confusion as to if base
-callsigns of lengths 7-9 are allowed.
-
 In this context alphanumeric is defined as any ASCII values in the range:
  * decimal [65 - 90] - 'A'-'Z'
  * decimal [48 - 57] - '0'-'9'
 
-In addition to legally identifying callsigns and tactical calls, APRS
-defines additional calls which fall in these categories:
+SSIDs are important for most APRS operators since it enables a user to have
+more than one station operating under the same callsign. There are several
+conventions for how to select SSIDs for specific stations, with the most
+popular one being the APRS 1.1 addendum: http://www.aprs.org/aprs11/SSIDs.txt
+It is important to realize that while this convention is suggested, nothing in
+APRS should depend on a specific meaning of specific SSIDs, so users are free
+to select any valid SSID they like for any station.
+
+In addition to station licensed callsigns and tactical calls (which simply
+require adding a license callsign in the comment field), APRS defines
+additional calls which fall in these categories:
  * Blacklisted callsigns
  * Terminal Node Controller Identifiers
  * Routing aliases
@@ -63,7 +76,7 @@ Relevant links:
 
 Many callsigns may be used in the routing path to request service from
 groups of digipeaters instead of individual specific digipeaters.
-Each of these aliases consists of one to five characters, an 'n' original
+Each of these aliases consists of two to five characters, an 'n' original
 hop specifier, and an 'N' hops remaining specifier as the SSID.
  * Neither n nor N may be greater than seven.
  * n must always be greater than or equal to N
