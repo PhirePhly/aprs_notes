@@ -95,3 +95,21 @@ MTU defined as 512 - http://aprs-is.net/downloads/javAPRSSrvr/javAPRSSrvrUsersGu
 
 All this implies is that 512 is a valid MTU for APRS-IS TNC2 transport. No change required.
 
+## Other APRS Maximum Lengths
+
+Digging into the APRS101.PDF doc for the maximum length for other APRS data types
+
+ * Location packets - 1+8+1+9+1+43 = 63
+ * Time stamped location - 1+7+8+1+9+1+7+36 = 70
+ * NMEA position - 1+209 = 210
+ * DF Report - 1+8+1+9+1+7+8+28 = 63
+ * DF Report w/ time - 1+7+8+1+9+1+7+8+28 = 70
+ * Compressed location - 1+1+4+4+1+2+1+40 = 54
+ * Compressed location w/ time - 1+7+1+4+4+1+2+1+40 = 61
+ * Object - 1+9+1+7+8+1+9+1+43 = 80
+ * Compressed object - 1+9+1+7+13+43 = 74
+ * PARM. - 1+9+1+5+7+7+6+6+5+6+5+4+4+4+3+3+3 = 79 (THIS IS LONGER THAN 67!)
+ * BITS. - 1+9+1+5+8+23 = 47
+ * Status report - 1+7+62 = 70
+ * Third party with used path = 9+1+9+80+1+9+1+9+1+1 = 121
+ 
