@@ -84,7 +84,8 @@ Inside Information Field:
 
 1+9+1+67+1+5 = 84 maximum
 
-Why is the maximum length for APRS Messages 84 and not 214?!
+Why is the maximum length for APRS Message packets 84 and not 214?!
+Why can't the maximum message length be 197 instead of 67?
 
 
 ## APRS-IS packets
@@ -115,5 +116,5 @@ Digging into the APRS101.PDF doc for the maximum length for other APRS data type
  * PARM. - 1+9+1+5+7+7+6+6+5+6+5+4+4+4+3+3+3 = 79 (THIS IS LONGER THAN 67!)
  * BITS. - 1+9+1+5+8+23 = 47
  * Status report - 1+7+62 = 70
- * Third party with used path = 9+1+9+80+1+9+1+9+1+1 = 121
+ * Third party with used path = 9+1+9+80+1+9+1+9+1+1+n = 121+n
  
