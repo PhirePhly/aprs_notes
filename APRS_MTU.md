@@ -66,6 +66,10 @@ Inside Information Field:
 
 NETWORKID to indicate a packet is from APRS-IS is "TCPIP"
 
+The original APRS101.PDF spec advocates for RF-gating the entire used
+path, which can add up to 80 additional bytes. Is this deprecated?
+It still doesn't explain the limitation on message length.
+
 [AX.25 Info Field MTU] - [Third Party encap Overhead] = [APRS MTU]
 
 256 - 42 = 214 byte APRS L3 MTU
