@@ -29,35 +29,54 @@ Noted violators of the original APRS101 format include:
 # Proposed Telemetry format
 
 ```
-T#nnn,n,n,n,n,n,bbbbbbbbCOMMENT
+T#nnn,n,n,n,n,n,bbbbbbbb
 ```
 
 * nnn - three digit sequence number wraps 999 --> 000
 * n - Analog telemetry value
-* bbbbbbbb - Eight boolean values represented by 0/1
-* COMMENT - Additional textual information which need not be parsed or stored
+* bbbbbbbb - Eight boolean values B1 - B8 represented by 0/1
 
-Analog telemetry values are single precision floating point values
+Analog telemetry values are integer or floating point values
 which are always represented as base ten decimal encoding.
-Values may be represented with leading zeros, and must still be parsed
+Values may be represented with leading zeros, but must always be parsed
 as base ten values (and not base 8 as some parsers will handle numbers
 with leading zeros).
 Negative numbers must have a leading negative sign. Positive numbers
-may not use a positive sign.
+should not use a positive sign.
+
+Stations are not required to use all five analog and the binary field.
+Stations may optionally only beacon the number of fields used, so a
+telemetry packet may be formatted as any of the following:
+
+```
+T#nnn,n,n,n,n,n,bbbbbbbb
+T#nnn,n,n,n,n,n
+T#nnn,n,n,n,n
+T#nnn,n,n,n
+T#nnn,n,n
+T#nnn,n
+```
+
+Fields which were not included should be assumed to be 0. Some implementations
+include a comment field after the boolean field, which may be ignored.
 
 Lengths
 * `T#nnn,` - 6
 * `n,` - 5×required length for numberic value
 * `bbbbbbbb` - 8
-* `COMMENT` - Undefined
-* Total length - 214 bytes
+* Maximum length - 214 bytes
 
-## Parameter labels
+## Telemetry Parameter Formatters
 
 To aid in the presentation of telemetry values, APRS message packets
 matching a specific format and addressed to the source of the telemetry
 packets may be beaconed to give other stations information
 on how each telemetry value should be processed and labeled.
+
+Each subsequent comma separated field in a telemetry formatter packet is
+optional. Excluding labels or units or setting the field to an empty string 
+for a telemetry field indicates that that field is not being used, and
+may be excluded by receiving stations from telemetry display.
 
 ### Telemetry Parameter Name Data
 ```
@@ -101,6 +120,9 @@ but all telemetry receivers should support these coefficients
 if the telemetry source chooses not to do processing before sending
 the telemetry.
 
+Lacking an EQNS formatter packet, the coefficients should be assumed to
+be {a,b,c} = {0,1,0}.
+
 ### Bit Sense / Project Title
 
 ```
@@ -111,7 +133,8 @@ X indicates the active polarity of the corresponding b value in the
 telemetry packets. Thus, when `b = X`, the value is considered true.
 
 The project title may be displayed above any telemetry plot.
-The project title is limited to 184 bytes.
+The project title is limited to 184 bytes, with a recommended presentation
+length of 23 characters.
 
 ## Links
 
