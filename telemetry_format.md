@@ -126,14 +126,14 @@ be {a,b,c} = {0,1,0}.
 ### Bit Sense / Project Title
 
 ```
-:MYCALL   :BITS.XXXXXXXXProject Title
+:MYCALL   :BITS.XXXXXXXX,Project Title
 ```
 
 X indicates the active polarity of the corresponding b value in the
 telemetry packets. Thus, when `b = X`, the value is considered true.
 
 The project title may be displayed above any telemetry plot.
-The project title is limited to 184 bytes, with a recommended presentation
+The project title is limited to 183 bytes, with a recommended presentation
 length of 23 characters.
 
 ## Links
