@@ -26,12 +26,12 @@ Other methods should be used to advertise events on that schedule.
 ## Extension Format
 
 ```
-[Event Identifier](Week of Month)[Day of Week][Hour of day](Time zone abbreviation)
+[Event Identifier](Week of Month)[Day of Week][Time of Day](Time zone abbreviation)
 ```
 
 Items in square brackets are required; those in parenthesis are optional.
 
-The event identifier indicates what kind of event is being indicated:
+The event identifier indicates what kind of event is being advertised:
 * `NET` - Radio net
 * `MTG` - Club or social in-person meeting
 
@@ -57,7 +57,7 @@ Values may be one or more of:
 The week of the month is calculated per day,
 not including partial weeks where the day of interest falls in the previous month.
 
-Hour of day is required and indicates the time of the event in 24h local time.
+Time of Day is required and indicates the time of the event in 24h local time.
 It is a four digit number less than `2400`.
 
 The time zone abbreviation is an optional indication of which time zone is used,
