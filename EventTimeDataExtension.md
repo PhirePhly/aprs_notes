@@ -45,6 +45,8 @@ Value may be one or more of:
 * `5th`
 
 Day of week is required and indicates the days of the week an event happens.
+Multiple days of the week may be indicated by listing multiple days or
+as a range of days separated by a hyphen.
 Values may be one or more of:
 * `Mo` (Monday)
 * `Tu` (Tuesday)
@@ -71,7 +73,9 @@ This field should be very rarely used.
 
 `MTG2ndWe1900` - A meeting happens on the second Wednesday of the month at 7PM.
 
-`NETMoTuWeThFr0900` - The 9AM talknet happens every weekday at 9AM.
+`NETMo-Fr0900` - The morning talknet happens every weekday at 9AM.
+
+`NETTuFr-Su0930` - A net happens weekly on Tuesdays, Fridays, Saturdays, and Sundays at 9:30AM.
 
 `MTG1st3rdSu1000` - Brunch is had on the first and third Sundays of the month at 10AM
 
