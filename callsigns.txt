@@ -91,12 +91,12 @@ with SS7-7 aliases without packets traveling outside the intended service area.
 See your local regional APRS interest group for more information.
 
 
- *** Special Handling Tokens ***
+ *** Special Path Elements ***
 
-The last hop in a routing path may be a special handling token, which
+The last hop in a routing path may be a special path element which
 instructs other stations to handle the packet in a specific way:
  * RFONLY - Do not I-gate this packet to the APRS-IS backbone
  * NOGATE - Do not I-gate this packet to the APRS-IS backbone
  * TCPIP - Packet originated from Internet source, do not I-gate
- * TCPXX - Packet originated from unverified Internet source (?), do not I-gate. Deprecated?
+ * TCPXX - Packet originated from unverified Internet source, do not I-gate. Deprecated
 
