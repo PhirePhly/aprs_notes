@@ -8,7 +8,7 @@ That being said, a common mistake when building exclusively RF based nodes
 is to not support non-AX.25 APRS callsigns, which will cause problems when
 trying to exchange APRS messages with IP-based stations.
 
-Callsigns are written in what is called the TNC2 format, so althought the
+Callsigns are written in what is called the TNC2 format, so although the
 AX.25 header supports the SSIDs 0-15, you will not see callsigns such as
 CALLSN-0. By convention, the zero callsign is dropped and written as CALLSN.
 
@@ -47,7 +47,7 @@ additional calls which fall in these categories:
  * Blacklisted callsigns
  * Terminal Node Controller Identifiers
  * Routing aliases
- * Special handling tokens
+ * Special path elements
 
 
  *** Blacklisted Callsigns ***
