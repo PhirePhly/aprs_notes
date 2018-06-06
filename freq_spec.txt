@@ -19,6 +19,7 @@ the freq spec modifier formats.
 VHF/UHF frequencies are encoded
 as a 10 byte string such as ``146.520MHz", so implementations may limit
 their support to this three decimal three digit format.
+*** Note: Need to specify to use ASCII 0x2E decimal point for international users.
 HF and microwave frequencies are encoded as shorter or longer numbers
 before the decimal point, and HF frequencies should not be padded to 10 bytes.
 For example the 40m QRP calling frequency is written as ``7.030MHz"
@@ -28,6 +29,7 @@ The 3x3 format should be used whenever possible,
 but stations requiring more than three significant figured after the
 decimal point may include them.
 This is particularly important for narrowband channels which are 500Hz off of a round 1kHz. For example, FRS channel 1 may be written as ``462.5625MHz".
+*** Note: This isn't quite right. Current radios presume the fourth digit on narrowband channels
 
 If a freq spec requires encoding an arbitrary separate input frequency instead
 of a repeater offset,
