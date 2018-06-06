@@ -1,0 +1,65 @@
+# Freq Spec
+
+The frequency specification, or freq spec, is a data extension to encode
+a VHF/UHF frequency and optionally include other information about a
+channel including squelch settings and offsets for repeaters.
+
+Freq specs are often used for object packets advertising repeaters,
+but may also be used to encode the currently used channel in
+a comment field, a status, or message.
+
+The first part of a freq spec is the encoding of a frequency in MHz,
+followed by an optional alternate receive frequency and an optional list of
+unordered five-byte modifiers.
+All of these modifiers have a leading space to separate them from the
+previous field.
+The freq spec is terminated by any text which does not match one of
+the freq spec modifier formats.
+
+VHF/UHF frequencies are encoded
+as a 10 byte string such as ``146.520MHz", so implementations may limit
+their support to this three decimal three digit format.
+HF and microwave frequencies are encoded as shorter or longer numbers
+before the decimal point, and HF frequencies should not be padded to 10 bytes.
+For example the 40m QRP calling frequency is written as ``7.030MHz"
+and the 23cm SSB calling frequency is written as ``1296.100MHz".
+
+The 3x3 format should be used whenever possible,
+but stations requiring more than three significant figured after the
+decimal point may include them.
+This is particularly important for narrowband channels which are 500Hz off of a round 1kHz. For example, FRS channel 1 may be written as ``462.5625MHz".
+
+If a freq spec requires encoding an arbitrary separate input frequency instead
+of a repeater offset,
+this optional field may follow the main frequency
+and is simply written using ``rx" instead of ``MHz".
+I.e. ``␣446.000rx"
+
+The modifiers include:
+
+* ``␣Tnnn" - Encode the subaudible tone which starts with "nnn". 
+I.e. T100 indicates 100.0Hz, where T127 indicates 127.3Hz
+
+* ``␣Cnnn" - Encode and decode the subaudible tone starting with "nnn"
+
+* ``␣Dnnn" - Encode and decode DCS code "nnn"
+
+* ``␣Toff" - Use carrier squelch
+
+* ``␣1750" - 1750Hz tone burst access
+
+* ``␣+nnn" | ``␣-nnn" - Repeater offset in 10kHz
+
+* ``␣Rnnm" | ``␣Rnnk" - Range of the station in miles or kilometers
+
+
+# Freq Spec Examples
+
+"146.520MHz +000 Toff" - Simplex channel with carrier squelch
+"146.760MHz -060 T091" - Repeater with negative 600kHz offset and tone of 91.5Hz
+"442.300MHz C127 +500" - Repeater with PL encode and decode of 127.3Hz and +5MHz offset
+"440.150MHz D255 +500" - Repeater with DCS code 255 and +5MHz offset
+"146.460MHz 446.500rx T107 R35m" - Crossband repeater with input on 446.500MHz using a tone of 107.2Hz, an output on 146.460MHz using carrier squelch, and a usable range of 35 miles
+"162.525MHz R50m" - A station with a range of 50 miles
+"147.190MHz 1750 R40k" - Tone burst access with a range of 40km
+
